@@ -1,4 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
+// dotenv.config();
+// dotenv.config({ path: path.resolve(__dirname, '.env.dev') }); //đọc file config môi trường dev
+dotenv.config({ path: path.resolve(__dirname, `.env.${process.env.ENV}`) }); //đọc file config theo truy xuất biến môi trường
 
 /**
  * Read environment variables from file.
@@ -18,7 +23,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
